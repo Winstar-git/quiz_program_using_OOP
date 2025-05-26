@@ -32,3 +32,11 @@ class Quiz:
         folder = os.path.join("Quizzes", self.category)
         os.makedirs(folder, exist_ok=True)
         return os.path.join(folder, self.filename + ".txt")
+
+    def save_question(self, question):
+        try:
+            with open(self.file_path, 'a', encoding="utf-8") as text:
+                text.write(question.to_text())
+            print("Question saved successfully.\n")
+        except Exception as e:
+            print(f"Error saving question: {e}")
