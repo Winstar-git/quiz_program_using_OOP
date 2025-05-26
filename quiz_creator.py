@@ -59,3 +59,23 @@ class Creator:
                 print("Invalid input. Please enter a, b, c, or d only.")
         
         return Question(question, choices, answer)
+    
+    def start(self):
+        category = input("Enter quiz category: ")
+        filename = input("Enter quiz filename (without .txt): ")
+        self.quiz = Quiz(category, filename)
+
+        while True:
+            question = self.create_question()
+            question.preview()
+
+            save = input("Save this question? (y/n): ").lower()
+            if save == 'y':
+                self.quiz.save_question(question)
+                self.quiz.questions.append(question)
+            else:
+                print("Question not saved.")
+
+            another = input("Would you like to add another question? (y/n): ").lower()
+            if another != 'y':
+                break
