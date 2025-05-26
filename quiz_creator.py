@@ -32,6 +32,9 @@ class Quiz:
         folder = os.path.join("Quizzes", self.category)
         os.makedirs(folder, exist_ok=True)
         return os.path.join(folder, self.filename + ".txt")
+    
+    def add_question(self, question):
+        self.questions.append(question)
 
     def save_question(self, question):
         try:
@@ -72,10 +75,14 @@ class Creator:
             save = input("Save this question? (y/n): ").lower()
             if save == 'y':
                 self.quiz.save_question(question)
-                self.quiz.questions.append(question)
+                self.quiz.add_question(question)
             else:
                 print("Question not saved.")
-
             another = input("Would you like to add another question? (y/n): ").lower()
             if another != 'y':
+                print("Quiz creation finished.")
                 break
+
+if __name__ == "__main__":
+    creator = Creator()
+    creator.start()
