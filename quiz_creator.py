@@ -20,3 +20,10 @@ class Question:
         output.append(f"Answer: {self.answer.upper()}")
         output.append("################\n")
         return '\n'.join(output)
+    
+class Quiz:
+    def __init__(self, category, filename):
+        self.category = category
+        self.filename = filename
+        self.questions = []
+        self.file_path = self._create_path()
