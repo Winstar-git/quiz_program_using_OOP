@@ -40,3 +40,22 @@ class Quiz:
             print("Question saved successfully.\n")
         except Exception as e:
             print(f"Error saving question: {e}")
+
+class Creator:
+    def __init__(self):
+        self.quiz = None
+
+    def create_question(self):
+        question = input("\nEnter your question: ")
+        choices = {}
+        for option in ['a', 'b', 'c', 'd']:
+            choices[option] = input(f"Choice {option}: ")
+
+        while True:
+            answer = input("Enter correct answer (a/b/c/d): ").lower()
+            if answer in ['a', 'b', 'c', 'd']:
+                break
+            else:
+                print("Invalid input. Please enter a, b, c, or d only.")
+        
+        return Question(question, choices, answer)
