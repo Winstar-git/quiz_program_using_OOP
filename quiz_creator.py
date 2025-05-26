@@ -27,3 +27,8 @@ class Quiz:
         self.filename = filename
         self.questions = []
         self.file_path = self._create_path()
+
+    def _create_path(self):
+        folder = os.path.join("Quizzes", self.category)
+        os.makedirs(folder, exist_ok=True)
+        return os.path.join(folder, self.filename + ".txt")
