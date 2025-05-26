@@ -57,7 +57,7 @@ class QuizRunner:
         random.shuffle(self.questions)
         score = 0
         for i, question in enumerate(self.questions, 1):
-            if question.ask(i):
+            if question.ask_question(i):
                 score += 1
         print(f"\nQuiz Complete! Your score: {score} / {len(self.questions)}")
 
@@ -110,3 +110,7 @@ class QuizPlayer:
             runner.start()
         else:
             print("No valid questions found.")
+
+if __name__ == "__main__":
+    player = QuizPlayer()
+    player.run()
