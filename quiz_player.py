@@ -60,3 +60,53 @@ class QuizRunner:
             if question.ask(i):
                 score += 1
         print(f"\nQuiz Complete! Your score: {score} / {len(self.questions)}")
+
+class QuizPlayer:
+    def __init__(self):
+        self.loader = QuizLoader()
+
+    def run(self):
+        if not os.path.exists(self.loader.base_path):
+            print("No quizzes available.")
+            return
+
+        categories = self.loader.list_categories()
+        if not categories:
+            print("No categories found.")
+            return
+
+        print("\nCategories:")
+        for i, category in enumerate(categories, 1):
+            print(f"{i}. {category}")
+
+        try:
+            category_index = int(input("\nSelect a category by number: ")) - 1
+            selected_category = categories[category_index]
+        except (ValueError, IndexError):
+            print("Invalid category selection.")
+            return
+
+        quizzes = self.loader.list_quizzes(selected_category)
+        if not quizzes:
+            print("No quiz files in this category.")
+            return
+
+        print(f"\nAvailable Quizzes in '{selected_category}':")
+        for i, quiz in enumerate(quizzes, 1):
+            print(f"{i}. {quiz}")
+
+        try:
+            quiz_index = int(input("\nSelect a quiz file by number: ")) - 1
+            selected_quiz = quizzes[quiz_index]
+        except (ValueError, IndexError):
+            print("Invalid quiz file selection.")
+            return
+
+        quiz_path = os.path.join(self.loader.base_path, selected_category, selected_quiz)
+        questions = self.loader.load_questions(quiz_path)
+
+        if questions:
+            runner = QuizRunner(questions)
+            runner.start()
+        else:
+            print("No valid questions found.")
