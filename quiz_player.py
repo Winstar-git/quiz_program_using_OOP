@@ -18,3 +18,7 @@ class Question:
                 return user_input == self.answer
             else:
                 print("Invalid input. Please enter a, b, c, or d.")
+
+class QuizLoader:
+    def __init__(self, base_path="Quizzes"):
+        self.base_path = base_path
